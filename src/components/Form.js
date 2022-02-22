@@ -23,6 +23,7 @@ const Form = () => {
         <div className='btn-sort' id="goodToBad" onClick={()=>setSortGoodBad('goodToBad')}>Top</div>
         <div className='btn-sort' id="badToGood" onClick={()=>setSortGoodBad('badToGood')}>Flop</div>
       </div>
+      
       <div className='result'>
         {moviesData
           .slice(0,12)
