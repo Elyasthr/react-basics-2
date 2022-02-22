@@ -72,7 +72,7 @@ const Card = ({movie}) => {
           break;
       }
     }
-    return genreArray.map((genre) => <li key={genre}>{genre}</li>);
+    return genreArray.map((genre,index) => <li key={index}>{genre}</li>);
   };
 
   const addStorage = ()=>{
@@ -83,7 +83,15 @@ const Card = ({movie}) => {
     if(!storedData.includes(movie.id.toString())){
       storedData.push(movie.id);
       window.localStorage.movies = storedData
+      
     }
+  }
+
+  const deleteStorage = ()=>{
+    let storedData = window.localStorage.movies.split(',');
+    let newData = storedData.filter(id=>id!=movie.id);
+    window.localStorage.movies = newData;
+    window.location.reload(); //a jamais faire utiliser un context ou redux plutôt mais pas le temps
   }
 
   return (
@@ -96,7 +104,12 @@ const Card = ({movie}) => {
       {movie.overview ? <h3>Synopsis</h3> : ""}
       <p>{movie.overview}</p>
 
-      <div className='btn' onClick={addStorage}>Coup de coeur</div>
+      {
+        movie.genre_ids 
+          ? <div className='btn' onClick={addStorage}>Coup de coeur</div>  
+          : <div className='btn' onClick={deleteStorage}>Retirer coup de coeur</div>
+      }
+      
     </div>
   );
 };
